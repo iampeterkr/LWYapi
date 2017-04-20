@@ -5,12 +5,12 @@ from django.shortcuts import render
 
 from LWYapi import settings
 
-global i_process
+#global i_process
 
 
 def ListView(request, product="", member="", process="", item="", seq=""):
 
-    print("request : ", product, member, process, item, seq)
+#    print("request : ", product, member, process, item, seq)
 
     if product > "" :
         pass
@@ -45,32 +45,23 @@ def ListView(request, product="", member="", process="", item="", seq=""):
 
 # Process 별 함수 call
     if process == "list" :
-        i_process = "list 호출 하셨습니다"
+        result = "list 호출 하셨습니다"
     elif process == "data" :
-        i_process = "data 호출 하셨습니다"
+        result = "data 호출 하셨습니다"
     else :
         return HttpResponse("Check the process(:{}) ".format(process))
 
 
 
-    # result = "안녕하세요 ListView 클래스's "\
-    #          " - Product : {} " \
-    #          " - member  : {} " \
-    #          " - process : {} " \
-    #          " - item    : {} " \
-    #          " - seq     : {}" \
-    #          .format(product , member , process , item , seq)\
-
-    total = i_process + "안녕하세요 ListView 클래스's "\
+    result += "안녕하세요 ListView 클래스's "\
              " - Product : {} " \
              " - member  : {} " \
              " - process : {} " \
              " - item    : {} " \
              " - seq     : {}" \
-             .format(product , member , process , item , seq)\
+             .format(product , member , process , item , seq) \
 
-
-    return HttpResponse(total)
+    return HttpResponse(result)
 
 
 
