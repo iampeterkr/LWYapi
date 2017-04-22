@@ -9,5 +9,5 @@ admin.site.unregister(UrlMeta)
 
 @admin.register(UrlMeta)
 class UrlMetaAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['market', 'product', 'process', 'item', 'seq']
 
