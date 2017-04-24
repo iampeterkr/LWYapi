@@ -14,7 +14,7 @@ admin.site.unregister(MemberInfo)
 class MemberInfoAdmin(admin.ModelAdmin):
     list_display = ['market', 'member', 'bic_code', 'lei_code',
                     'member_name','login_id', 'login_pass',
-                    'irs_won', 'irs_usd', 'ndf',
+                    'irs_won', 'irs_usd', 'ndf', 'pro_fx',
                     'created_at', 'updated_at']
 
 @admin.register(UrlMeta)
