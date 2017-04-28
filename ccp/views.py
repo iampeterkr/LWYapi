@@ -6,82 +6,113 @@ from django.shortcuts import render
 from LWYapi import settings
 from . import constant
 
-#global i_process
 
-def MainView(request, product="", member="", process="", item="", seq=""):
-
-    # call the MainView()
-    rtUrlCheck = UrlCheckView(product, member, process, item, seq)
-
-    print(rtUrlCheck)
-    if rtUrlCheck :
-        pass
+def MainView(request,
+             u_product="",
+             u_member="",
+             u_date="",
+             u_process="",
+             u_item="",
+             u_seq="" ):
 
 
-    print("URL_PROCESS :", constant.URL_ITEM_LIST)
+    # Change the input url to lower charector format
+    u_product   = u_product.lower()
+    u_member    = u_member.lower()
+    u_date      = u_date.lower()
+    u_process   = u_process.lower()
+    u_item      = u_item.lower()
+    u_seq       = u_seq.lower()
 
-    print("Main/process : ", process)
+
+    # Call the Url Path Check
+    rtUrlCheck = UrlCheckView(u_product,
+                              u_member,
+                              u_date,
+                              u_process,
+                              u_item,
+                              u_seq)
+
+    print("rtUrlCheck : "+rtUrlCheck)
+    if rtUrlCheck == constant.CHECK_PRODUCT:
+        return HttpResponse(constant.CHECK_PRODUCT)
+    elif rtUrlCheck == constant.CHECK_MEMBER:
+        return HttpResponse(constant.CHECK_MEMBER)
+    elif rtUrlCheck == constant.CHECK_DATE:
+        return HttpResponse(constant.CHECK_DATE)
+    elif rtUrlCheck == constant.CHECK_PROCESS:
+        return HttpResponse(constant.CHECK_PROCESS)
+    elif rtUrlCheck == constant.CHECK_ITEM:
+        return HttpResponse(constant.CHECK_ITEM)
+    elif rtUrlCheck == constant.CHECK_SEQ:
+        return HttpResponse(constant.CHECK_SEQ)
+
     # Process 별 함수 call
-    if process == "list" or process == "LIST":
+    if u_process == "list" or u_process == "LIST":
         result = "list 호출 하셨습니다"
         RtList = ListView()
         result += RtList
 
-    elif process == "data" or process == "DATA":
+    elif u_process == "data" or u_process == "DATA":
         result = "data 호출 하셨습니다"
         RtData = DataView()
         result += RtData
     else :
-        return HttpResponse("Check the process(:{}) ".format(process))
+        return HttpResponse("Check the u_process(:{}) ".format(u_process))
 
 
     result += "안녕하세요 ListView 클래스's " \
-              " - Product : {} " \
-              " - member  : {} " \
-              " - process : {} " \
-              " - item    : {} " \
-              " - seq     : {}" \
-        .format(product , member , process , item , seq)
+              " - u_product : {} " \
+              " - u_member  : {} " \
+              " - u_date : {} " \
+              " - u_process : {} " \
+              " - u_item    : {} " \
+              " - u_seq     : {}" \
+        .format(u_product , u_member, u_date, u_process, u_item, u_seq)
 
     return HttpResponse(result)
 
 
-# def UrlCheckView(product="", member="", process="", item="", seq=""):
-def UrlCheckView(product, member, process, item, seq):
+def UrlCheckView(u_product,
+                 u_member,
+                 u_date,
+                 u_process,
+                 u_item,
+                 u_seq):
 
-    print("UrlCheckView : ", product, member, process, item, seq)
+    # print(u_product)
+    # print(u_member)
+    # print(u_date)
+    # print(u_process)
+    # print(u_item)
+    # print(u_seq)
 
-    if product > "" :
-        pass
-    else :
-        return "CHECK_PRODUCT"
 
-    if member > "" :
-        pass
-    else :
-        return HttpResponse(" check the member ")
+    if u_product <= ""  or \
+       u_product not in ["irs-won", "irs-usd", "ndf"] :
+           return constant.CHECK_PRODUCT
 
-    if process > "" :
-        pass
-    else :
-        return HttpResponse(" check the process ")
 
-    if item > "" :
-        pass
-    else :
-        return HttpResponse(" check the item ")
+    if u_member <= ""   or \
+       len(u_member) !=5 :
+            return constant.CHECK_MEMBER
 
-    if seq > "" :
-        pass
-    else :
-        if process == "LIST"  or process == "list":
-            print("check seq-list")
-            pass
-        else :
-            return HttpResponse(" check the seq: need the seq at process : DATA ")
 
-    return True
+    if u_date <= ""     or \
+       len(u_date) !=8 :
+            return constant.CHECK_DATE
 
+    if u_process <= ""  or \
+       u_process not in ["list", "data"] :
+            return constant.CHECK_PROCESS
+
+    if u_item <= "" :
+        return constant.CHECK_ITEM
+
+    if u_seq <= "" :
+        return constant.CHECK_SEQ
+
+    return constant.CHECK_OK
 
 
 def ListView():
