@@ -72,7 +72,17 @@ def MainView(request,
               " - u_seq     : {}" \
         .format(u_product , u_member, u_date, u_process, u_item, u_seq)
 
-    return HttpResponse(result)
+    # return HttpResponse(result)
+    # return render(request, 'ccp/Result_display.html', {'result':result})
+    return JsonResponse(
+        {
+            'message': "JsonResponse Qury....." ,
+            # 'item': [result] ,
+            'item':[u_product , u_member, u_date, u_process, u_item, u_seq]
+        } , json_dumps_params={'ensure_ascii': True}
+
+    )
+
 
 
 def UrlCheckView(u_product,
