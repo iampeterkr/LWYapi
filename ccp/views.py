@@ -4,6 +4,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from LWYapi import settings
+
 from . import constant
 
 
@@ -14,7 +15,6 @@ def MainView(request,
              u_process="",
              u_item="",
              u_seq="" ):
-
 
     # Change the input url to lower charector format
     u_product   = u_product.lower()
@@ -48,17 +48,19 @@ def MainView(request,
         return HttpResponse(constant.CHECK_SEQ)
 
     # Process 별 함수 call
-    if u_process == "list" or u_process == "LIST":
+    if u_process == "list" :
         result = "list 호출 하셨습니다"
         RtList = ListView()
         result += RtList
 
-    elif u_process == "data" or u_process == "DATA":
+    elif u_process == "data" :
         result = "data 호출 하셨습니다"
         RtData = DataView()
         result += RtData
     else :
         return HttpResponse("Check the u_process(:{}) ".format(u_process))
+
+
 
 
     result += "안녕하세요 ListView 클래스's " \
