@@ -1,11 +1,12 @@
 # LWYapi/ccp/views.py
 import os
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from LWYapi import settings
 
 from . import constant
+from .models import MemberInfo
 
 
 def MainView(request,
@@ -46,6 +47,12 @@ def MainView(request,
         return HttpResponse(constant.CHECK_ITEM)
     elif rtUrlCheck == constant.CHECK_SEQ:
         return HttpResponse(constant.CHECK_SEQ)
+
+
+    # 회원정보 Check
+    rtMemberCheck = MemberView(u_product, u_member)
+    print (rtMemberCheck)
+
 
     # Process 별 함수 call
     if u_process == "list" :
@@ -101,7 +108,8 @@ def UrlCheckView(u_product,
 
 
     if u_product <= ""  or \
-       u_product not in ["irs-won", "irs-usd", "ndf"] :
+       u_product not in ["irs-won", "irs-usd", "ndf", "pro_fx"] :
+
            return constant.CHECK_PRODUCT
 
 
@@ -125,6 +133,50 @@ def UrlCheckView(u_product,
         return constant.CHECK_SEQ
 
     return constant.CHECK_OK
+
+
+# Member Authorization Checking
+
+def MemberView(u_product, u_member):
+
+    qs = MemberInfo.objects.all()
+
+    qs = qs.filter(member=u_member)
+    if qs.exists():
+        pass
+    else:
+        return constant.CHECK_MEMBER
+
+
+    for i in qs:
+        if u_product == 'irs-won':
+            if i.irs_won =='y':
+                pass
+            else:
+                return constant.CHECK_PRODUCT
+
+        if u_product == 'irs-usd':
+            if i.irs_usd == 'y':
+                pass
+            else:
+                return constant.CHECK_PRODUCT
+
+        if u_product == 'ndf':
+            if i.ndf == 'y':
+                pass
+            else:
+                return constant.CHECK_PRODUCT
+
+        if u_product == 'pro-fx':
+            if i.pro_fx == 'y':
+                pass
+            else:
+                return constant.CHECK_PRODUCT
+
+    return constant.CHECK_OK
+
+
+
 
 
 def ListView():

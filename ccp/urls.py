@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^(?P<u_product>[\w/\-/]+)/(?P<u_member>[\w/]+)/(?P<u_date>[\d]+)/$', views.MainView) ,
     url(r'^(?P<u_product>[\w/\-/]+)/(?P<u_member>[\w/]+)/$', views.MainView) ,
     url(r'^(?P<u_product>[\w/\-/]+)/$' , views.MainView) ,
-    url(r'^/', views.MainView) ,
+    # url(r'^/', views.MainView) ,
     # '/'를 붙여주고 안 붙여 주는것을 완벽히 이해가 안되어 있음
 
     #url(r'^(?P<product>[a-zA-Zㄱ-힣/\d/]+)/(?P<u_member>[\d/]+)/$' , views.ListView) ,
