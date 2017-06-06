@@ -7,6 +7,8 @@ from LWYapi import settings
 
 from . import constant
 from .models import MemberInfo
+import json
+
 
 
 def MainView(request,
@@ -57,9 +59,13 @@ def MainView(request,
     # Process 별 함수 call
     if u_process == "list" :
         result = "list 호출 하셨습니다"
-        RtList = ListView()
-        result += RtList
 
+        RtList = ListView(  u_product ,
+                            u_member ,
+                            u_date ,
+                            u_process ,
+                            u_item )
+        # result += RtList
     elif u_process == "data" :
         result = "data 호출 하셨습니다"
         RtData = DataView()
@@ -79,13 +85,20 @@ def MainView(request,
               " - u_seq     : {}" \
         .format(u_product , u_member, u_date, u_process, u_item, u_seq)
 
+
+
     # return HttpResponse(result)
     # return render(request, 'ccp/Result_display.html', {'result':result})
+    # return render(request, 'ccp/Result_display.html', {'result':result+RtList})
+
     return JsonResponse(
         {
             'message': "JsonResponse Qury....." ,
-            # 'item': [result] ,
-            'item':[u_product , u_member, u_date, u_process, u_item, u_seq]
+            #'item': [result] ,
+            'item':[u_product , u_member, u_date, u_process, u_item, u_seq],
+            'LIST':[RtList]
+            #
+            # jsonString = json.dumps(rows , indent=4)
         } , json_dumps_params={'ensure_ascii': True}
 
     )
@@ -179,10 +192,49 @@ def MemberView(u_product, u_member):
 
 
 
-def ListView():
+def ListView(u_product ,
+             u_member ,
+             u_date ,
+             u_process ,
+             u_item):
 
-    #print("- Called the ListView() ")
-    return (" * Called the ListView() ")
+    print("- Called the ListView() ")
+
+    # qs = MemberInfo.objects.all()
+    qs = MemberInfo.objects.filter(member=u_member)
+
+
+    rows = ''
+    for item in qs:
+        # rows = rows + "BIC_CODE : " + item.bic_code + ", "
+        # jsonString = json.dumps("BIC_CIDE : " + item.bic_code)
+        # rows = rows + jsonString +", "
+
+        rows = rows + \
+               'market:'        + item.market + ', '+\
+               'member: '       + item.member + ', '+\
+               'bic_code: '     + item.bic_code +', '+\
+               'lei_code: '     + item.lei_code +', '+\
+               'member_name: '  + item.member_name +', '+\
+               'login_id: '     + item.login_id +', '+\
+               'login_pass: '   + item.login_pass +', '+\
+               'irs_won: '      + item.irs_won +', '+\
+               'irs_usd: '      + item.irs_usd +', '+\
+               'ndf: '          + item.ndf +', '+\
+               'fx: '           + item.pro_fx+', '
+        # \
+        #        +\
+        #        item.created_at + ""
+        #
+
+
+    # # q = request.GET.get('q' , '')
+    # # q  = u_item.GET.get()
+    # # qs = qs.filter(bic_code__icontains=u_item)
+
+
+    return rows
+    # return (" * Called the ListView() ")
 
 
 def DataView():

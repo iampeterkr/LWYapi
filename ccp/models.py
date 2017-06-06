@@ -66,3 +66,19 @@ class UrlMeta(models.Model):
 
 
 
+# 시장별 상품별 회원별 아이템 정보
+class Total_Info(models.Model):
+
+    market = models.CharField(max_length=20, choices=MARKET_CHOICE, default="")
+    member = models.CharField(max_length=20)
+    bic_code = models.CharField(max_length=20)
+    lei_code = models.CharField(max_length=20)
+    member_name = models.CharField(max_length=20)
+    login_id = models.CharField(max_length=20)
+    login_pass = models.CharField(max_length=20)
+    irs_won = models.CharField(max_length=3, choices=YES_NO_CHOICE, default="", null=True )
+    irs_usd = models.CharField(max_length=3, choices=YES_NO_CHOICE, default="", null=True )
+    ndf = models.CharField(max_length=3, choices=YES_NO_CHOICE, default="", null=True )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
+    pro_fx = models.CharField(max_length=3, choices=YES_NO_CHOICE, default="", null=True )
