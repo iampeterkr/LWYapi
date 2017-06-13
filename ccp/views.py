@@ -2,14 +2,14 @@
 import os
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, get_object_or_404
-
+from django.views.decorators.csrf import csrf_exempt
 from LWYapi import settings
 
 from . import constant
 from .models import MemberInfo
 import json
 
-
+@csrf_exempt
 
 def MainView(request,
              u_product="",
@@ -19,6 +19,18 @@ def MainView(request,
              u_item="",
              u_seq="" ):
 
+    if request.method == 'POST':
+        print("request.method : : " + request.method)
+
+        return JsonResponse(
+                {
+                'message': "JsonResponse POST....." ,
+                # 'item': [result] ,
+                'item': [u_product , u_member , u_date , u_process , u_item , u_seq] ,
+
+                } , json_dumps_params={'ensure_ascii': True}
+
+                )
     # Change the input url to lower charector format
     u_product   = u_product.lower()
     u_member    = u_member.lower()
@@ -209,19 +221,20 @@ def ListView(u_product ,
         # rows = rows + "BIC_CODE : " + item.bic_code + ", "
         # jsonString = json.dumps("BIC_CIDE : " + item.bic_code)
         # rows = rows + jsonString +", "
+        #rows = rows + item.get_market_display()
 
-        rows = rows + \
-               'market:'        + item.market + ', '+\
-               'member: '       + item.member + ', '+\
-               'bic_code: '     + item.bic_code +', '+\
-               'lei_code: '     + item.lei_code +', '+\
-               'member_name: '  + item.member_name +', '+\
-               'login_id: '     + item.login_id +', '+\
-               'login_pass: '   + item.login_pass +', '+\
-               'irs_won: '      + item.irs_won +', '+\
-               'irs_usd: '      + item.irs_usd +', '+\
-               'ndf: '          + item.ndf +', '+\
-               'fx: '           + item.pro_fx+', '
+            rows = rows + \
+                   'market:'        + item.market + ', '+\
+                   'member: '       + item.member + ', '+\
+                   'bic_code: '     + item.bic_code +', '+\
+                   'lei_code: '     + item.lei_code +', '+\
+                   'member_name: '  + item.member_name +', '+\
+                   'login_id: '     + item.login_id +', '+\
+                   'login_pass: '   + item.login_pass +', '+\
+                   'irs_won: '      + item.irs_won +', '+\
+                   'irs_usd: '      + item.irs_usd +', '+\
+                   'ndf: '          + item.ndf +', '+\
+                   'fx: '           + item.pro_fx+', '
         # \
         #        +\
         #        item.created_at + ""
