@@ -19,3 +19,10 @@ URL_MARKET_MEMBER   = "URL_MEMBER"
 URL_ITEM_LIST       = "LIST"
 URL_ITEM_DATA       = "DATA"
 URL_SEQ             = "URL_SEQ"
+
+
+MARKET_CCP      = "ccp"
+IRS_WON         = "irs_won"
+IRS_USD         = "irs_usd"
+NDF             = "ndf"
+FX              = "fx"
