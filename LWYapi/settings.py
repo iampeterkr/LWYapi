@@ -133,3 +133,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_URL = '/ccp/IRS-WON/00001/20170101/list/all/'

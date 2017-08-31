@@ -12,10 +12,32 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 
+from django.contrib.auth import authenticate, login
+
+
 
 #-----------------------------------------------------
 # Main
 #-----------------------------------------------------
+@csrf_exempt
+def LoginView(request, u_loginid, u_loginpass):
+    print('LoginView : ulogin[{}], u_loginpass[{}] '.format(u_loginid, u_loginpass))
+    return HttpResponse('LoginView : ulogin[{}], u_loginpass[{}] '.format(u_loginid, u_loginpass))
+
+
+
+    #
+    # username = request.POST['username']
+    # password = request.POST['password']
+    # user = authenticate(request, username=username, password=password)
+    # if user is not None:
+    #     login(request, user)
+    #     # Redirect to a success page.
+    #
+    # else:
+    #     # Return an 'invalid login' error message.
+    #     pass
+
 @csrf_exempt
 def MainView(request,
              u_product="",
@@ -24,9 +46,7 @@ def MainView(request,
              u_process="",
              u_item="",
              u_seq="" ):
-
-
-
+    print('MainView : ulogin [ request: ] ' + str(request))
     # -----------------------------------------------------
     #[공통] Change the input url to lower charector format
     # -----------------------------------------------------

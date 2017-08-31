@@ -15,10 +15,12 @@ Including another URLconf
 """
 # from django.conf.urls import include, url
 from django.contrib import admin
-
 from django.conf.urls import url, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
+from django.conf import settings
+from django.contrib.auth import views as auth_views
+
 
 # # Serializers define the API representation.
 # class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,6 +40,25 @@ from rest_framework import routers, serializers, viewsets
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ccp/', include('ccp.urls')),
+    #url(r'^login/', include('ccp.urls')),
+    url(r'^accounts/logout/',auth_views.logout ,
+        name='logout',
+        kwargs={
+            'next_page': settings.LOGIN_URL,
+        } ),
+
+    #url(r'^accounts/login', include('ccp.urls')),
+    #
+    #url(r'^accounts/login/$' , auth_views.LoginView.as_view()) ,
+    #url(r'^accounts/login/$' , views.MainView) ,
+    #url(r'^(?P<u_product>[\w/\-/]+)/$' , views.MainView) ,
+    #url(r'^accounts/logout/$' , auth_views.LogoutView.as_view()) ,
+    #url(r'^accounts/logout/$' , auth_views.auth_logout()),
+    #
     # url(r'^', include(router.urls)),
+    #
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
+
+
+# 중략
