@@ -8,5 +8,5 @@ urlpatterns = [
     # [\w/\-/]+ 영어대소문자 숫자 '-', \w/{5} 5자리
     url(r'^(?P<u_username>[\w/\-/]*)/(?P<u_password>[\w/]*)/$', views.AccountsView),
     url(r'^(?P<u_username>[\w/\-/]*)/$', views.AccountsView),
-    url(r'^/$', views.AccountsView),
+    #url(r'^/$', views.AccountsView),
 ]

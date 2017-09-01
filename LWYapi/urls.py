@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^ccp/', include('ccp.urls')),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
+
     # url(r'^accounts/logout/',auth_views.logout ,
     #     name='logout',
     #     kwargs={

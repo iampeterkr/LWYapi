@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import UrlMeta, MemberInfo, TrCodeInfo_M, TOTAL_SEQ_INFO_M_, IFD_POST_DATA_M_
 
+
 admin.site.register(UrlMeta)
 admin.site.unregister(UrlMeta)
 
@@ -15,6 +16,9 @@ admin.site.unregister(TOTAL_SEQ_INFO_M_)
 
 
 # Register your models here.
+# @admin.register(User)
+# class UserAdmin(admin.ModelAdmin):
+#     list_display = ['id', 'username', 'password']
 
 @admin.register(MemberInfo)
 class MemberInfoAdmin(admin.ModelAdmin):

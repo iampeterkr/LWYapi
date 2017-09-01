@@ -1,4 +1,8 @@
 from django.db import models
+
+#기존 User모델을 확장
+from django.contrib.auth.models import AbstractUser
+
 from django.utils import timezone
 
 
@@ -47,6 +51,31 @@ ITEMGROUP_CHOICE = (
     ('rds' , 'RDS') ,
     ('post', 'POST'),
 )
+
+#기존 User모델을 확장
+from django.contrib.auth.models import AbstractUser
+
+# User 정보 확장
+class User (AbstractUser):
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    login_state = models.CharField(max_length=3, blank=True)
+    market = models.CharField(max_length=20, choices=MARKET_CHOICE , default="")
+    member = models.CharField(max_length=20, blank=True)
+    bic_code = models.CharField(max_length=20, blank=True)
+    lei_code = models.CharField(max_length=20, blank=True)
+    member_name = models.CharField(max_length=50, blank=True)
+    login_id = models.CharField(max_length=20, blank=True)
+    login_pass = models.CharField(max_length=20, blank=True)
+    irs_won = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
+    irs_usd = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
+    ndf = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
+    pro_fx = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
+
+    class Meta:
+        abstract = True
+
 
 
 # 회원정보 작성

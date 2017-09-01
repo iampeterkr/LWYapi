@@ -10,9 +10,10 @@ import json
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
-
-
-from django.contrib.auth import authenticate, login
+# from .forms import UserForm, LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth import get_user_model
 
 
 
@@ -77,9 +78,10 @@ def MainView(request,
     elif rtUrlCheck == constant.CHECK_PROCESS:
         return HttpResponse(constant.CHECK_PROCESS)
     elif rtUrlCheck == constant.CHECK_ITEM:
-        return HttpResponse(constant.CHECK_ITEM)
+        if u_process not in ['login']:
+            return HttpResponse(constant.CHECK_ITEM)
     elif rtUrlCheck == constant.CHECK_SEQ:
-        if u_process not in ['list']:
+        if u_process not in ['list', 'login']:
             return HttpResponse(constant.CHECK_SEQ)
 
 
@@ -94,6 +96,36 @@ def MainView(request,
             pass
     else:
         pass
+
+
+    #-----------------------------------------------------
+    #[공통] Login 정보 Check
+    #-----------------------------------------------------
+    #username = request.POST.get('username' , 'default') 동일방법
+    username = request.POST['username']
+    password = request.POST['password']
+    print('username : ' + username)
+
+    # UserModel = get_user_model()
+
+    # user = UserModel.objects.get(username=username)
+    #
+    #user = authenticate(request, username=username, password=password)
+    # if user is not None:
+    #     login(request , user)
+    #     # return redirect('index')
+    #     return HttpResponse('로그인 성공.')
+    # else:
+    #     return HttpResponse('로그인 실패. 다시 시도 해보세요.')
+
+    rtMemberCheck = MemberCheckView(u_product, u_member)
+
+    if rtMemberCheck == constant.CHECK_PRODUCT:
+        return HttpResponse(constant.CHECK_PRODUCT + " [ product input :" + u_product +" ]")
+    elif rtMemberCheck == constant.CHECK_MEMBER:
+        return HttpResponse(constant.CHECK_MEMBER+ " [ member input :" + u_member + " ]")
+
+
 
 
 
@@ -265,7 +297,7 @@ def UrlCheckView(u_product,
             return constant.CHECK_DATE
 
     if u_process <= ""  or \
-       u_process not in ["list", "data", 'create', 'delete', 'update'] :
+       u_process not in ["list", "data", 'create', 'delete', 'update', 'login'] :
             return constant.CHECK_PROCESS
 
     if u_item <= "" :

@@ -44,6 +44,10 @@ INSTALLED_APPS = [
 
 ]
 
+# settings.py
+# User모델 확장
+AUTH_USER_MODEL = 'ccp.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -136,3 +140,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # Use for redirect as call Login_URL
 LOGIN_URL = '/ccp/IRS-WON/00001/20170101/list/all/'
+
+# settings.py
+# User모델 확장
+AUTH_USER_MODEL = 'ccp.User'
