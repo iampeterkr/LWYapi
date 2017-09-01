@@ -19,14 +19,13 @@ from django.contrib.auth import authenticate, login
 #-----------------------------------------------------
 # Main
 #-----------------------------------------------------
-@csrf_exempt
-def LoginView(request, u_loginid, u_loginpass):
-    print('LoginView : ulogin[{}], u_loginpass[{}] '.format(u_loginid, u_loginpass))
-    return HttpResponse('LoginView : ulogin[{}], u_loginpass[{}] '.format(u_loginid, u_loginpass))
+# @csrf_exempt
+# def LoginView(request, u_loginid, u_loginpass):
+#     print('LoginView : ulogin[{}], u_loginpass[{}] '.format(u_loginid, u_loginpass))
+#     return HttpResponse('LoginView : ulogin[{}], u_loginpass[{}] '.format(u_loginid, u_loginpass))
+#
 
 
-
-    #
     # username = request.POST['username']
     # password = request.POST['password']
     # user = authenticate(request, username=username, password=password)
@@ -170,6 +169,7 @@ def MainView(request,
         # st_content = str(content)
         # print('content : '+ st_content[0:11])
 
+        # Save the receving data at 'IFD_POST_DATA' Table
         ifd = IFD_POST_DATA_M_(
                             created_at  = u_date,
                             updated_at  = datetime.now(),
@@ -197,6 +197,7 @@ def MainView(request,
                     print('DB Object 존재치 않음 에러')
                     RtData = 'ERROR : DB Object 존채치 않음 '
             else:
+                # Update Seq to DB Table as 'TOT_SEQ_INFO'
                 if qs:
                     qs.update_at = datetime.now()
                     qs.save()

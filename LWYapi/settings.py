@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #'ccp',
+    'accounts',
     'rest_framework',
     'ccp.apps.CcpConfig',
 
@@ -133,4 +134,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+# Use for redirect as call Login_URL
 LOGIN_URL = '/ccp/IRS-WON/00001/20170101/list/all/'

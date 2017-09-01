@@ -53,6 +53,7 @@ ITEMGROUP_CHOICE = (
 class MemberInfo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    login_state = models.CharField(max_length=3)
     market = models.CharField(max_length=20, choices=MARKET_CHOICE, default="")
     member = models.CharField(max_length=20)
     bic_code = models.CharField(max_length=20)

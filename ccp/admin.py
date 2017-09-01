@@ -18,7 +18,7 @@ admin.site.unregister(TOTAL_SEQ_INFO_M_)
 
 @admin.register(MemberInfo)
 class MemberInfoAdmin(admin.ModelAdmin):
-    list_display = ['created_at', 'updated_at',
+    list_display = ['created_at', 'updated_at', 'login_state',
                     'market', 'member',
                     'bic_code', 'lei_code',
                     'member_name','login_id', 'login_pass',
