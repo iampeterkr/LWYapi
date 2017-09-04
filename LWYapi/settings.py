@@ -44,9 +44,6 @@ INSTALLED_APPS = [
 
 ]
 
-# settings.py
-# User모델 확장
-AUTH_USER_MODEL = 'ccp.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

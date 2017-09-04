@@ -52,8 +52,6 @@ ITEMGROUP_CHOICE = (
     ('post', 'POST'),
 )
 
-#기존 User모델을 확장
-from django.contrib.auth.models import AbstractUser
 
 # User 정보 확장
 class User (AbstractUser):
@@ -66,15 +64,13 @@ class User (AbstractUser):
     bic_code = models.CharField(max_length=20, blank=True)
     lei_code = models.CharField(max_length=20, blank=True)
     member_name = models.CharField(max_length=50, blank=True)
-    login_id = models.CharField(max_length=20, blank=True)
+    login_id = models.CharField(max_length=20, blank=True, primary_key=True)
     login_pass = models.CharField(max_length=20, blank=True)
     irs_won = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
     irs_usd = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
     ndf = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
     pro_fx = models.CharField(max_length=3 , choices=YES_NO_CHOICE , default="" , null=True)
 
-    class Meta:
-        abstract = True
 
 
 

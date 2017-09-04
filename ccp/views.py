@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from LWYapi import settings
 from . import constant
-from .models import MemberInfo, TOTAL_SEQ_INFO_M_, IFD_POST_DATA_M_
+from .models import User, MemberInfo, TOTAL_SEQ_INFO_M_, IFD_POST_DATA_M_
 import json
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
@@ -14,8 +14,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import get_user_model
-
-
 
 #-----------------------------------------------------
 # Main
@@ -97,18 +95,42 @@ def MainView(request,
     else:
         pass
 
-
     #-----------------------------------------------------
     #[공통] Login 정보 Check
     #-----------------------------------------------------
     #username = request.POST.get('username' , 'default') 동일방법
     username = request.POST['username']
     password = request.POST['password']
-    print('username : ' + username)
+    # print('username : ' + username)
+    # print('password : ' + password)
 
-    # UserModel = get_user_model()
+    # 사용방법 모름, 향후 authenticate관련하여 이해후 반영 필요
+    #  user = authenticate(request, username=username, password=password)
 
-    # user = UserModel.objects.get(username=username)
+    UserModel = get_user_model()
+    user = UserModel.objects.get(username=username)
+    if ( user.username == username ) and \
+        (user.password == password ):
+        user.login_state = 'yes'
+        user.save()
+        return HttpResponse(constant.CHECK_OK)
+    else:
+        return HttpResponse(constant.CHECK_ACCOUNTS)
+
+
+    # username = request.POST['username']
+    # password = request.POST['password']
+    # user = authenticate(request, username=username, password=password)
+    # if user is not None:
+    #     login(request, user)
+    #     # Redirect to a success page.
+    #
+    # else:
+    #     # Return an 'invalid login' error message.
+    #     pass
+
+
+
     #
     #user = authenticate(request, username=username, password=password)
     # if user is not None:
@@ -180,6 +202,31 @@ def MainView(request,
             } , json_dumps_params={'ensure_ascii': True}
         )
     else: #POST 요청
+        # Login 정보 확인
+        # if u_process == 'login':
+        #     username = request.POST.get('username','default')
+        #     password = request.POST.get('password', 'default')
+        #     # username = request.POST['username']
+        #     # password = request.POST['password']
+        #     print('username : '+username)
+        #     qs = User.objects.filter(login_id=username)
+        #     if qs:
+        #         for item in qs:
+        #             print('item.login_id' + item.login_id)
+        #
+        #             if (item.login_id == username) and\
+        #                     (item.password == password):
+        #                 ## login state update
+        #                 print('login_state : ')
+        #                 qs.login_state = 'yes'
+        #                 qs.save()
+        #                 return HttpResponse(constant.CHECK_OK)
+        #             else:
+        #                 return HttpResponse(constant.CHECK_USERNAME)
+        #     else:
+        #          return HttpResponse(constant.CHECK_USERNAME)
+        #
+
         content = request.POST.get('data', 'default')
 
         # seq duplicate check
