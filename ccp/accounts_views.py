@@ -4,7 +4,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from LWYapi import settings
 from . import constant
-from .models import MemberInfo, TOTAL_SEQ_INFO_M_, IFD_POST_DATA_M_
+from .models import MemberInfo, TOTAL_SEQ_INFO_M, IFD_POST_DATA_M
 import json
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist

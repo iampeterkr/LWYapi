@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'accounts',
     'rest_framework',
     'ccp.apps.CcpConfig',
+    'channels', #channels setting
+    'chat',
 
 ]
 
@@ -141,3 +143,25 @@ LOGIN_URL = '/ccp/IRS-WON/00001/20170101/list/all/'
 # settings.py
 # User모델 확장
 AUTH_USER_MODEL = 'ccp.User'
+
+
+#channel setting 170905
+# redis_host = os.environ.get('REDIS_HOST', 'localhost')
+#
+# CHANEL_LAYERS = {
+#     "default" : {
+#             "BACKAND" : "asgi_redis.RedisChannelLayer",
+#             "CONFIG" : {
+#                 "hosts" : [(redis_host, 6379)],
+#             },
+#         "ROUTING": "coding_night_live.routing.channel_routing",
+#     }
+# }
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "asgiref.inmemory.ChannelLayer",
+        #  LWYapi : project name
+        "ROUTING": "LWYapi.routing.channel_routing",
+    },
+}

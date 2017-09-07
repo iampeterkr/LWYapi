@@ -136,7 +136,7 @@ class Total_Info(models.Model):
 
 
 # 회원별 TRCODE SEQ 정보
-class TOTAL_SEQ_INFO_M_(models.Model):
+class TOTAL_SEQ_INFO_M(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     market = models.CharField(max_length=20, choices=MARKET_CHOICE)
@@ -155,7 +155,7 @@ class TOTAL_SEQ_INFO_M_(models.Model):
 
 
 # IFD_Product_member_trcode 데이타 정보
-class IFD_POST_DATA_M_(models.Model):
+class IFD_POST_DATA_M(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     market = models.CharField(max_length=20, choices=MARKET_CHOICE)

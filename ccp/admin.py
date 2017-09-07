@@ -1,5 +1,5 @@
 from django.contrib import admin, auth
-from .models import User, UrlMeta, MemberInfo, TrCodeInfo_M, TOTAL_SEQ_INFO_M_, IFD_POST_DATA_M_
+from .models import User, UrlMeta, MemberInfo, TrCodeInfo_M, TOTAL_SEQ_INFO_M, IFD_POST_DATA_M
 
 
 admin.site.register(User)
@@ -14,8 +14,8 @@ admin.site.unregister(MemberInfo)
 admin.site.register(TrCodeInfo_M)
 admin.site.unregister(TrCodeInfo_M)
 
-admin.site.register(TOTAL_SEQ_INFO_M_)
-admin.site.unregister(TOTAL_SEQ_INFO_M_)
+admin.site.register(TOTAL_SEQ_INFO_M)
+admin.site.unregister(TOTAL_SEQ_INFO_M)
 
 
 # Register your models here.
@@ -43,14 +43,14 @@ class TrCodeInfoAdmin(admin.ModelAdmin):
                     'item', 'item_group']
 
 
-@admin.register(TOTAL_SEQ_INFO_M_)
+@admin.register(TOTAL_SEQ_INFO_M)
 class TotalSeqInfoAdmin(admin.ModelAdmin):
     list_display = ['created_at', 'updated_at',
                     'market', 'product', 'member',
                     'item', 'item_group', 'item_seq',
                     'fmtoa_seq', 'fatob_seq', 'end_bit']
 
-@admin.register(IFD_POST_DATA_M_)
+@admin.register(IFD_POST_DATA_M)
 class IfdPostDataAdmin(admin.ModelAdmin):
     list_display = ['created_at', 'updated_at',
                     'market', 'product', 'member',
