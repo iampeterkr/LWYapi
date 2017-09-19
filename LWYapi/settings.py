@@ -145,19 +145,8 @@ LOGIN_URL = '/ccp/IRS-WON/00001/20170101/list/all/'
 AUTH_USER_MODEL = 'ccp.User'
 
 
-#channel setting 170905
-# redis_host = os.environ.get('REDIS_HOST', 'localhost')
-#
-# CHANEL_LAYERS = {
-#     "default" : {
-#             "BACKAND" : "asgi_redis.RedisChannelLayer",
-#             "CONFIG" : {
-#                 "hosts" : [(redis_host, 6379)],
-#             },
-#         "ROUTING": "coding_night_live.routing.channel_routing",
-#     }
-# }
 
+# 첫번째, 기본적인 단일 Echo 때 환경
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "asgiref.inmemory.ChannelLayer",
@@ -165,3 +154,11 @@ CHANNEL_LAYERS = {
         "ROUTING": "LWYapi.routing.channel_routing",
     },
 }
+
+# #ASKDJANG asgi_ipc사용예
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'asgi_ipc.IPCChannelLayer',
+#         'ROUTING': 'LWYapi.routing.channel_routing',
+#     },
+# }

@@ -738,7 +738,7 @@ def IrsWonDataView(  u_product,
     print("- Called the IrsWonDataView() ")
 
     rows = ''
-    qs = IFD_POST_DATA_M_.objects.filter(product=u_product)
+    qs = IFD_POST_DATA_M.objects.filter(product=u_product)
     qs = qs.filter(member=u_member)
 
     if u_item not in ["all" , "clearing" , "settlement" , "risk" , "pricing"]:

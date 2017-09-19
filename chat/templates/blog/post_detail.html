@@ -1,0 +1,28 @@
+<!-- javascript: reconnecting websocket -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
+
+<!-- 채팅 메세지 입력 위젯 -->
+<input type="text" id="chat_text" placeholder="chat text" />
+<ul id="chat"></ul>
+<hr/>
+
+<script>
+$(function() {
+    var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+    var ws_url = ws_scheme + '://' + window.location.host + window.location.pathname + "stream/?session_key={{ request.session.session_key }}";
+    var chatsock = new ReconnectingWebSocket(ws_url);
+
+    chatsock.onmessage = function(message) {
+        var data = JSON.parse(message.data);
+        $("#chat").append('<li>[' + data.username + '] ' + data.chat_text + ' </li>');
+    };
+
+    $('#chat_text').keydown(function(key) {
+        if (key.keyCode == 13 ) {
+            var chat_text = $(this).val();
+            $(this).val('');
+            chatsock.send(JSON.stringify({chat_text: chat_text}));
+        }
+    });
+});
+</script>

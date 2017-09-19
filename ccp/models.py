@@ -166,3 +166,15 @@ class IFD_POST_DATA_M(models.Model):
     item_seq = models.CharField(max_length=20)
     data =  models.CharField(max_length=2000)
 
+
+# IFD_Product_member_trcode 데이타 정보
+class IFD_BIZ_DATA_M(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    market = models.CharField(max_length=20, choices=MARKET_CHOICE)
+    product = models.CharField(max_length=20, choices=PRODUCT_CHOICE)
+    member = models.CharField(max_length=20)
+    item = models.CharField(max_length=20, choices=ITEM_CHOICE, blank=True , null=True)
+    item_group = models.CharField(max_length=20 , choices=ITEMGROUP_CHOICE,  blank=True , null=True)
+    item_seq = models.CharField(max_length=20)
+    data =  models.CharField(max_length=2000)
